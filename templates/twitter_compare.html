@@ -1,3 +1,10 @@
+{% load staticfiles %}
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.13/d3.min.js"></script>
+<script src="{% static 'venn.js'%}"></script>
+
+<a href="{% url 'overlaps.home'  %}">Overlaps Homepage</a>
+<hr>
 {{ twitter_name_one }}
 <hr>
 {{ twitter_name_two }}
@@ -7,3 +14,23 @@
 {{ t1 }}
 <hr>
 {{ t2 }}
+
+<div id="simple_example" class="simple_example"></div>
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function(event) {
+
+// define sets and set set intersections
+        var sets = [{label: "{{ twitter_name_one }}", size: {{t1_size}}},
+                    {label: "{{ twitter_name_two }}", size: {{t2_size}}}],
+                overlaps = [{sets: [0,1], size: {{commons_size}}}];
+
+        // get positions for each set
+        sets = venn.venn(sets, overlaps);
+
+        // draw the diagram in the 'simple_example' div
+        venn.drawD3Diagram(d3.select(".simple_example"), sets, 300, 300);});
+
+
+</script>

@@ -24,5 +24,8 @@ def twitter_compare(request):
         'twitter_name_two': twitter_name_2,
         'full': full_text,
         't1': text_1,
-        't2': text_2
+        't2': text_2,
+        't1_size': len(u1_ids),
+        't2_size': len(u2_ids),
+        'commons_size': len(commons)
     })

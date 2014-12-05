@@ -2,15 +2,26 @@
 <form action="{% url 'overlaps.twitter_compare' %}" method="get">
     <table>
         <tr>
-            <input id="twitter_name_1" name="twitter_name_one">
-            <label for="twitter_name_1">First Twitter name</label>
+            <td>
+                <label for="twitter_name_1">First Twitter name</label>
+            </td>
+            <td>
+                <input id="twitter_name_1" name="twitter_name_one">
+            </td>
         </tr>
         <tr>
-            <input id="twitter_name_2" name="twitter_name_two">
-            <label for="twitter_name_2">Second Twitter name</label>
+            <td>
+                <label for="twitter_name_2">Second Twitter name</label>
+            </td>
+            <td>
+                <input id="twitter_name_2" name="twitter_name_two">
+
+            </td>
         </tr>
         <tr>
-            <button type="submit">Compare!!</button>
+            <td>
+                <button type="submit">Compare!!</button>
+            </td>
         </tr>
     </table>
 </form>
