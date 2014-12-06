@@ -2,26 +2,83 @@
 
 <script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.13/d3.min.js"></script>
 <script src="{% static 'venn.js'%}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'twitter_communities.css'%}"/>
 
-<a href="{% url 'overlaps.home'  %}">Overlaps Homepage</a>
-<hr>
-{{ twitter_name_one }}
-<hr>
-{{ twitter_name_two }}
-<hr>
-{{ full }}
-<hr>
-{{ t1 }}
-<hr>
-{{ t2 }}
 
-<div id="simple_example" class="simple_example"></div>
+<p class="restart_button"><a href="{% url 'overlaps.home'  %}">Return to Start</a></p>
+
+<p>Comparing {{ twitter_name_one }} and {{ twitter_name_two }}</p>
+<div id="main" class="main">
+    <table>
+        <tr>
+            <th>Following</th>
+            <th>Followed by</th>
+        </tr>
+
+        <tr>
+            <td>
+                {{ full }}
+            </td>
+            <td>
+                {{ followed_full }}
+            </td>
+        </tr>
+
+        {#        <tr>#}
+        {#            <td>#}
+        {#                {{ t1 }}#}
+        {##}
+        {#            </td>#}
+        {#            <td>#}
+        {#                {{ followed_t1 }}#}
+        {#            </td>#}
+        {#        </tr>#}
+        {##}
+        {#        <tr>#}
+        {#            <td>#}
+        {#                {{ t2 }}#}
+        {##}
+        {#            </td>#}
+        {#            <td>#}
+        {#                {{ followed_t2 }}#}
+        {#            </td>#}
+        {#        </tr>#}
+
+        <tr>
+            <td>
+                <b>{{ t1_following_percent }}%</b> of those <b>{{ twitter_name_one }}</b> follows are shared
+            </td>
+            <td>
+                <b>{{ twitter_name_one }}</b> shares <b>{{ t1_followed_percent }}%</b> of their followers
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <b>{{ t2_following_percent }}%</b> of those <b>{{ twitter_name_two }}</b> follows are shared
+            </td>
+            <td>
+                <b>{{ twitter_name_two }}</b> shares <b>{{ t2_followed_percent }}%</b> of their followers
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <div class="following_venn"></div>
+
+            </td>
+            <td>
+                <div class="followed_venn"></div>
+            </td>
+        </tr>
+    </table>
+</div>
+
 
 <script>
 
     document.addEventListener("DOMContentLoaded", function(event) {
 
-// define sets and set set intersections
         var sets = [{label: "{{ twitter_name_one }}", size: {{t1_size}}},
                     {label: "{{ twitter_name_two }}", size: {{t2_size}}}],
                 overlaps = [{sets: [0,1], size: {{commons_size}}}];
@@ -30,7 +87,26 @@
         sets = venn.venn(sets, overlaps);
 
         // draw the diagram in the 'simple_example' div
-        venn.drawD3Diagram(d3.select(".simple_example"), sets, 300, 300);});
+        venn.drawD3Diagram(d3.select(".following_venn"), sets, 300, 300);
 
+
+        var followed_sets = [{label: "{{ twitter_name_one }}", size: {{followed_t1_size}}},
+                    {label: "{{ twitter_name_two }}", size: {{followed_t2_size}}}],
+                followed_overlaps = [{sets: [0,1], size: {{followed_commons_size}}}];
+
+        // get positions for each set
+        followed_sets = venn.venn(followed_sets, followed_overlaps);
+
+        // draw the diagram in the 'simple_example' div
+        diagram = venn.drawD3Diagram(d3.select(".followed_venn"), followed_sets, 300, 300);
+
+
+        var colours = ['orange', 'green'];
+        diagram.circles.style("fill-opacity",.2)
+                {#                .style("stroke-width", 10)#}
+                {#                .style("stroke-opacity", .5)#}
+                .style("fill", function(d,i) { return colours[i]; });
+        {#                .style("stroke", function(d,i) { return colours[i]; });#}
+    });
 
 </script>

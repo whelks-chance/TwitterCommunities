@@ -24,6 +24,17 @@ class Compare():
             if key in u2_ids:
                 commons.append(key)
 
-        # print commons
-
         return u1_ids, u2_ids, commons
+
+    def get_follower_matches(self, user1, user2):
+        u1_followed_by = self.api.GetFollowerIDs(screen_name=user1)
+
+        u2_followed_by = self.api.GetFollowerIDs(screen_name=user2)
+
+        commons_followed_by = []
+        for key in u1_followed_by:
+            if key in u2_followed_by:
+                commons_followed_by.append(key)
+
+        return u1_followed_by, u2_followed_by, commons_followed_by
+

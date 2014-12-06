@@ -1,0 +1,26 @@
+table {
+    border-collapse: collapse;
+    width: 80%;
+}
+
+table, th, td {
+    border: black 1px solid;
+    text-align: center;
+}
+
+th {
+    height: 4em;
+    text-emphasis: circle;
+}
+
+.main {
+    margin: 0 auto;
+}
+
+.restart_button {
+    /*margin: 5px;*/
+    /*background-color: yellow;*/
+    /*color: red;*/
+    /*display: block;*/
+    /*border: gray 1px solid;*/
+}
