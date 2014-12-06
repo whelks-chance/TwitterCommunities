@@ -8,6 +8,9 @@
 <p class="restart_button"><a href="{% url 'overlaps.home'  %}">Return to Start</a></p>
 
 <p>Comparing {{ twitter_name_one }} and {{ twitter_name_two }}</p>
+
+<p>Contains cached data : {{ cached }} <a href="{% url 'overlaps.twitter_compare' %}?twitter_name_one={{ twitter_name_one }}&twitter_name_two={{ twitter_name_two }}&allow_cache=False">Click here to refresh caches if needed</a></p>
+
 <div id="main" class="main">
     <table>
         <tr>
